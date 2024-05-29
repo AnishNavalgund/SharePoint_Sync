@@ -15,16 +15,17 @@ The *hydrop-sharepointsync* package will be installed sucessfully
 
 1. Create a .env file in your main project to store the below paths.
 
-`SHAREPOINT_SOURCE_PATH=/remote/path/to/sharepoint/source
-LOCAL_DESTINATION_PATH=/path/to/local/destination
-LOCAL_SOURCE_PATH=/path/to/local/source
-SHAREPOINT_DESTINATION_PATH=/remote/path/to/sharepoint/destination`
+`SHAREPOINT_SOURCE_PATH=/remote/path/to/sharepoint/source`  
+`LOCAL_DESTINATION_PATH=/path/to/local/destination`  
+`LOCAL_SOURCE_PATH=/path/to/local/source`  
+`SHAREPOINT_DESTINATION_PATH=/remote/path/to/sharepoint/destination`  
 
 2. Use 'python-dotenv' to load environment variables in the main project and use them as arguments for the functions
 
 ## Example usage:
 
-`import os
+```python
+import os
 from dotenv import load_dotenv
 from hydrop-sharepointsync.sync import import_from_sharepoint, export_to_sharepoint
 
@@ -41,5 +42,6 @@ sharepoint_destination_path = os.getenv('SHAREPOINT_DESTINATION_PATH')
 import_from_sharepoint(sharepoint_source_path, local_destination_path)
 
 # Export data to SharePoint
-export_to_sharepoint(local_source_path, sharepoint_destination_path)`
+export_to_sharepoint(local_source_path, sharepoint_destination_path)
+```
 
