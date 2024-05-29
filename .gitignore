@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+
+# Install directories should be ignored
+build/
+*.egg-info/
