@@ -1,11 +1,12 @@
 import shutil
 import logging
 from pathlib import Path
+import os
 
 # Configure the logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def is_path_valid(path: Path, check_write_access=False) -> bool:
+def is_path_valid(path: Path) -> bool:
     """
     Check if the given path is valid and accessible.
 
@@ -16,8 +17,6 @@ def is_path_valid(path: Path, check_write_access=False) -> bool:
     Returns:
         bool: True if path is valid and accessible, False otherwise.
     """
-    if check_write_access:
-        return path.exists() and path.is_dir() and os.access(path, os.W_OK)
     return path.exists()
 
 def copy_directory(source: Path, destination: Path, create_dest=False):
@@ -29,9 +28,6 @@ def copy_directory(source: Path, destination: Path, create_dest=False):
         destination: The destination directory path as a Path object.
         create_dest: If True, create the destination directory if it does not exist.
     """
-    if not source.exists():
-        logging.error(f"Source path {source} does not exist.")
-        return
     
     if not destination.exists():
         if create_dest:
@@ -63,15 +59,18 @@ def import_from_sharepoint(source: str, destination: str) -> None:
         source: The source directory path in SharePoint.
         destination: The destination directory path on the local machine.
     """
+    if not source or not destination or not isinstance(source, (str, os.PathLike)) or not isinstance(destination, (str, os.PathLike)):
+        logging.error("Source or destination path not provided or invalid")
+        return
+
     source_path = Path(source)
     destination_path = Path(destination)
-    if source_path and destination_path:
-        if is_path_valid(source_path):
-            copy_directory(source_path, destination_path, create_dest=True)
-        else:
-            logging.error("Invalid source path. Ensure the source path is valid and accessible.")
+
+    if is_path_valid(source_path):
+        copy_directory(source_path, destination_path, create_dest=True)
     else:
-        logging.error("Source or destination path not provided")
+        logging.error("Invalid source path. Ensure the source path is valid and accessible.")
+
 
 def export_to_sharepoint(source: str, destination: str) -> None:
     """
@@ -81,14 +80,18 @@ def export_to_sharepoint(source: str, destination: str) -> None:
         source: The source directory path on the local machine.
         destination: The destination directory path in SharePoint.
     """
+
+    if not source or not destination or not isinstance(source, (str, os.PathLike)) or not isinstance(destination, (str, os.PathLike)):
+        logging.error("Source or destination path not provided or invalid")
+        return
+
     source_path = Path(source)
     destination_path = Path(destination)
-    if source_path and destination_path:
-        if is_path_valid(source_path) and is_path_valid(destination_path):
-            copy_directory(source_path, destination_path, create_dest=False)
-        else:
-            logging.error("Invalid path(s). Ensure both source and destination paths are valid and accessible.")
+
+    if is_path_valid(source_path):
+        copy_directory(source_path, destination_path, create_dest=False)
     else:
-        logging.error("Source or destination path not provided")
+        logging.error("Invalid source path. Ensure the source path is valid and accessible.")
+
 
 
