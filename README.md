@@ -2,12 +2,12 @@
 
 A Python package for importing and exporting data to/from hydrop SharePoint folders.
 
-## Installation and usage guide
+## Installation guide
 
 1. Clone the repository in the local machine
 2. Go the project root folder
 3. Open  terminal 
-4. pip install .
+4. Execute "pip install ."
 
 The *hydrop-sharepointsync* package will be installed sucessfully 
 
