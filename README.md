@@ -49,7 +49,6 @@ export_to_sharepoint(local_source_path, sharepoint_destination_path)
 The tool will not allow a creation of new directory in the Sharepoint. The files can the copied only if the specified directory is existing in the Sharepoint. 
 
 ## Limitation
-1. The tool cannot copy a specific file in a directory. The tool copies the directories itself.
-2. If the copied files are renamed and then again the same directory in imported, then the tool would copy the original file as well. (Duplicates will be creatred in the destination folder)
+If the copied files are renamed and then again the same directory in imported, then the tool would copy the original file as well. (Duplicates will be creatred in the destination folder)
 
 
